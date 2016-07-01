@@ -1,0 +1,39 @@
+<modification>
+    <id>Left</id>
+      <version>1.0</version>
+		   <vqmver>2.4.1</vqmver>
+       <author>Kruti Aparnathi</author>		
+
+<file name="catalog/controller/common/column_left.php">
+    <operation>
+			<search position="after"><![CDATA[
+        $modules = $this->model_design_layout->getLayoutModules($layout_id, 'column_left');
+        ]]></search>
+			<add><![CDATA[
+
+      $route = $this->request->get['route'];
+		if (isset($this->request->get['path'])) {
+			$parts = explode('_', (string)$this->request->get['path']);
+		} else {
+			$parts = array();
+		}
+		if($route == 'product/category' && count($parts) == 1)
+		{
+			$i = 0;
+			foreach ($modules as $module) {
+			if($module['code'] == trim('shopme_subcategory'))
+				{
+				if($i == 0)
+				{
+				 $modules = array();
+				}
+				 $modules[] = $module;
+				$i++;
+				}
+			}
+		}
+
+   ]]></add>
+	</operation>
+</file>	
+</modification>
